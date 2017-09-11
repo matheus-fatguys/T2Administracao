@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Mestre</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <form [formGroup]="mestreForm" novalidate>
+    <ion-item>
+      <ion-label floating>Senha Mestre:</ion-label>
+      <ion-input  type="password" formControlName="senhaMestre"></ion-input>
+    </ion-item>
+    <ion-list *ngIf="mestreForm.controls.senhaMestre.invalid && (mestreForm.controls.senhaMestre.dirty || mestreForm.controls.senhaMestre.touched)">
+      <ion-item *ngIf="mestreForm.controls.senhaMestre.errors.required">
+        <span>Senha é obrigatória</span>
+      </ion-item>
+      <ion-item *ngIf="mestreForm.controls.senhaMestre.errors.minlength">
+        <span>A senha deve possuir ao menos 10 caracteres</span>
+      </ion-item>
+    </ion-list> 
+  </form>
+  <detalhe-administrador  *ngIf="autenticado" [administrador]="administrador" ></detalhe-administrador>    
+</ion-content>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Registrar Condutor</ion-title>
+    <ion-title>Registrar Administrador</ion-title>
   </ion-navbar>
 </ion-header>
   <ion-content padding>
@@ -28,13 +28,13 @@
             </ion-item>
           </ion-list> 
         </form>
-    <detalhe-conduzido [conduzido]="conduzido" (onChangeConduzidoValido)="onChangeConduzidoValido()" ></detalhe-conduzido>    
+    <detalhe-administrador [administrador]="administrador" (onChangeAdministradorValido)="onChangeAdministradorValido()" ></detalhe-administrador>    
   </ion-content>
 <ion-footer>
   <ion-toolbar>
     <ion-buttons end>
       <button ion-button icon-right (click)="voltar()">Voltar<ion-icon name="arrow-back"></ion-icon></button>
-      <button ion-button icon-right [disabled]="!conduzidoValido" (click)="registrar()">Registrar<ion-icon name="cloud-upload"></ion-icon></button>
+      <button ion-button icon-right [disabled]="!administradorValido" (click)="registrar()">Registrar<ion-icon name="cloud-upload"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>  
 </ion-footer>

@@ -1,10 +1,10 @@
 import { DetalheVeiculoComponent } from './../../components/detalhe-veiculo/detalhe-veiculo';
-import { DetalheConduzidoComponent } from './../../components/detalhe-conduzido/detalhe-conduzido';
+import { DetalheAdministradorComponent } from './../../components/detalhe-administrador/detalhe-administrador';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Veiculo } from './../../models/veiculo';
 import { MensagemProvider } from './../../providers/mensagem/mensagem';
 import { Usuario } from './../../models/usuario';
-import { Conduzido } from './../../models/conduzido';
+import { Administrador } from './../../models/administrador';
 import { FatguysUberProvider } from './../../providers/fatguys-uber/fatguys-uber';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
@@ -19,11 +19,11 @@ export class RegistrarPage {
 
   private usuario= {} as Usuario;
   private loginForm:FormGroup;
-  private conduzido= {} as Conduzido;
+  private administrador= {} as Administrador;
   private loading:Loading ;  
-  private conduzidoValido:boolean;
-  @ViewChild(DetalheConduzidoComponent)
-  detalheConduzido : DetalheConduzidoComponent;
+  private administradorValido:boolean;
+  @ViewChild(DetalheAdministradorComponent)
+  detalheAdministrador : DetalheAdministradorComponent;
   
 
   constructor(public navCtrl: NavController, 
@@ -38,13 +38,10 @@ export class RegistrarPage {
     });      
   }
 
-  onChangeConduzidoValido(){
-    this.conduzidoValido=this.detalheConduzido.isValido();
-    this.conduzido=this.detalheConduzido.conduzido;
-  }
-  onChangeVeiculoValido(){
-    this.onChangeConduzidoValido();
-  }
+  onChangeAdministradorValido(){
+    this.administradorValido=this.detalheAdministrador.isValido();
+    this.administrador=this.detalheAdministrador.administrador;
+  } 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegistrarPage');
@@ -62,10 +59,10 @@ export class RegistrarPage {
             });
       this.loading.present().then(
         _=>{          
-          let resultado = this.fatguysService.registrarConduzido(this.conduzido, this.usuario).then(
+          let resultado = this.fatguysService.registrarAdministrador(this.administrador, this.usuario).then(
             ref => {
               this.loading.dismiss();              
-              let toast = this.msg.mostrarMsg('Bem vindo, '+this.conduzido.nome+'!', 3000);
+              let toast = this.msg.mostrarMsg('Bem vindo, '+this.administrador.nome+'!', 3000);
               toast.onDidDismiss(() => {
                 this.navCtrl.setRoot('HomePage');
               });

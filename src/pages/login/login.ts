@@ -20,6 +20,8 @@ export class LoginPage implements OnInit{
     // }
   }
 
+  public isMestre:boolean=true;
+
   private usuario= {} as Usuario;
   private loginForm:FormGroup;
   private loading:Loading ;
@@ -41,6 +43,9 @@ export class LoginPage implements OnInit{
     console.log('ionViewDidLoad LoginPage');
   }
 
+  mestre(){
+    this.navCtrl.setRoot('MestrePage');
+  }
   
 
   async login(){

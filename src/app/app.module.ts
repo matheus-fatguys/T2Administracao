@@ -16,7 +16,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import { ConducoesNaoAssociadasModalPageModule } from './../pages/conducoes-nao-associadas-modal/conducoes-nao-associadas-modal.module';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ConducoesNaoAssociadasModalPage } from './../pages/conducoes-nao-associadas-modal/conducoes-nao-associadas-modal';
 
 import { MyApp } from './app.component';
@@ -52,6 +52,7 @@ import { T2adminProvider } from '../providers/t2admin/t2admin';
     AngularFireAuthModule,
     AngularFireOfflineModule,
     FormsModule,   
+    ReactiveFormsModule,
     // TextMaskModule, 
     AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp)

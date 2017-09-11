@@ -1,3 +1,4 @@
+import { Administrador } from './../../models/administrador';
 import { User } from 'firebase/app';
 import { AngularFireOfflineDatabase, AfoListObservable } from 'angularfire2-offline';
 import { ModalController } from 'ionic-angular';
@@ -21,11 +22,13 @@ export class FatguysUberProvider {
 
   public conexao=null;
 
+  public administrador: Administrador;
   public condutor: Condutor;
   public conduzido: Conduzido;
   // public condutores: FirebaseListObservable<Condutor[]>;
   // public conduzidos: FirebaseListObservable<Conduzido[]>;
   // public chaves: FirebaseListObservable<Chave[]>;
+  public administradores: AfoListObservable<Administrador[]>;
   public condutores: AfoListObservable<Condutor[]>;
   public conduzidos: AfoListObservable<Conduzido[]>;
   public chaves: AfoListObservable<Chave[]>;
@@ -37,6 +40,7 @@ export class FatguysUberProvider {
   private auth : AutenticacaoProvider,
   private msg: MensagemProvider,
   private modal: ModalController) {
+    this.administradores=this.afd.list("administradores");
     this.condutores=this.afd.list("condutores");
     this.conduzidos=this.afd.list("conduzidos");    
     this.chaves=this.afd.list("chaves");
@@ -615,7 +619,17 @@ export class FatguysUberProvider {
     });  
   }
 
-   obterConduzidoPelaChave(chave: string){//:FirebaseListObservable<Chave[]>{
+  obterConduzidoPelaChave(chave: string){//:FirebaseListObservable<Chave[]>{
+    let ref= this.afd.list(`/chaves/`, {
+      query: {
+        orderByChild: "chave",
+        equalTo: chave
+      }
+    }); 
+    return ref;
+  }
+
+  obterAdministradorPelaChave(chave: string){//:FirebaseListObservable<Chave[]>{
     let ref= this.afd.list(`/chaves/`, {
       query: {
         orderByChild: "chave",
@@ -634,7 +648,24 @@ export class FatguysUberProvider {
     }); 
     return ref;
   }
-  
+
+  obterAdministrador(id: string){//:FirebaseListObservable<Chave[]>{
+    let ref= this.afd.list(`/administradores/`, {
+      query: {
+        orderByChild: "id",
+        equalTo: id
+      }
+    }); 
+    return ref;
+  }  
+
+  registrarAdministrador (administrador: Administrador, usuario: Usuario){    
+    return this.auth.registrarUsuario(usuario)
+    .then((ref) => {
+        administrador.usuario=ref.uid;
+        return this.administradores.update(administrador.id, administrador);        
+    });  
+  }
 
   registrarConduzido (conduzido: Conduzido, usuario: Usuario){    
 
@@ -707,6 +738,11 @@ export class FatguysUberProvider {
 
   atualizarTokenConduzido(token:string){
     return this.afd.object("/conduzidos/"+this.conduzido.id+"/token").set(token);
+  }
+
+  autenticarSenhaMestre(senhaMestre:string){
+
+    return this.afd.object("/chaves/chaveMestra/");
   }
 
 }

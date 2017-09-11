@@ -38,6 +38,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons end>      
+      <button *ngIf="isMestre" ion-button icon-right (click)="mestre()">Mestre<ion-icon name="bowtie"></ion-icon></button>
       <button ion-button icon-right (click)="registrar()">Resgistrar<ion-icon name="arrow-dropup"></ion-icon></button>
       <button ion-button icon-right [disabled]="loginForm.invalid" (click)="login()">Entrar<ion-icon name="log-in"></ion-icon></button>
     </ion-buttons>
