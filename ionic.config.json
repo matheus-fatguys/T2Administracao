@@ -1,5 +1,8 @@
 {
   "name": "T2Administracao",
-  "app_id": "",
-  "type": "ionic-angular"
+  "app_id": "13d3eaa2",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

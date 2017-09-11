@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button> 
+    <ion-title>
+       <span *ngIf="conducao?.cancelada" >Condução Cancelada</span>
+      <span *ngIf="conducao?.emAndamento" >Em Espera</span>
+      <span *ngIf="conducao?.embarcado" >Em Viagem</span>
+      <span *ngIf="conducao?.realizada" >Condução Finalizada</span>
+      <span *ngIf="!conducao?.cancelada&&!conducao?.emAndamento&&!conducao?.embarcado&&!conducao?.realizada" >Sem Condução</span>
+    </ion-title>    
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <mapa-conduzido 
+    (onTempoEstimado)="onTempoEstimado($event)" 
+    (onConducaoRealizada)="onConducaoRealizada($event)" 
+    (onConducaoEmAndamento)="onConducaoEmAndamento($event)" 
+    (onConducaoEmbarcado)="onConducaoEmbarcado($event)" 
+    (onConducaoCancelada)="onConducaoCancelada($event)" 
+    [conduzido]="conduzido"></mapa-conduzido>
+    <div class="top-left mapa-controles">
+      <ion-col class=" mapa-controles">
+         <ion-row> 
+          <button >
+            <button class=" mapa-controles" ion-button icon-only  (click)="centralizarMapa()"><ion-icon name="qr-scanner"></ion-icon></button>
+          </button>
+        </ion-row> 
+        <ion-row> 
+          <button >
+            <button class=" mapa-controles" ion-button icon-only  (click)="centralizarMapaNoConduzido()"><ion-icon name="locate"></ion-icon></button>
+          </button>
+        </ion-row> 
+         <ion-row *ngIf="conducao?.emAndamento||conducao?.embarcado"> 
+          <button >
+            <button class=" mapa-controles" ion-button icon-only  (click)="centralizarMapaNoCondutor()"><ion-icon name="bus"></ion-icon></button>
+          </button>
+         </ion-row> 
+         <ion-row *ngIf="conducao!=null&&!conducao?.cancelada&&!conducao?.embarcado&&!conducao?.realizada" > 
+          <button >
+            <button class=" mapa-controles" ion-button icon-only  (click)="confirmarCancelamento()"><ion-icon name="thumbs-down"></ion-icon></button>
+          </button>
+        </ion-row> 
+        <!-- <ion-row *ngIf="conducao!=null&&conducao?.cancelada&&!conducao?.embarcado&&!conducao?.realizada" > 
+         <button >
+           <button class=" mapa-controles" ion-button icon-only  (click)="confirmarNormalizacao()"><ion-icon name="thumbs-up"></ion-icon></button>
+         </button>
+       </ion-row>  -->
+      </ion-col>          
+    </div>
+    <div *ngIf="!conducao?.cancelada" >
+        <button class="mapa-informativo" icon-right >{{tempoParaChegada}}<ion-icon name="clock"></ion-icon></button>
+    </div>
+</ion-content>
+
